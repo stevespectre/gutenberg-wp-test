@@ -1,6 +1,7 @@
-const { registerBlockType} = wp.blocks;
+var el = wp.element.createElement;
+var richText = wp.editor.RichText;
 
-registerBlockType('gutenberg/custom-title-block', {
+wp.blocks.registerBlockType('gutenberg/custom-title-block', {
   title: 'Custom Title',
   description: 'Block to generate a custom Title',
   icon: 'shield-alt',
@@ -15,42 +16,38 @@ registerBlockType('gutenberg/custom-title-block', {
     function updateTitle(event) {
       props.setAttributes({title: event.target.value})
     }
-    function updateText(event) {
-      props.setAttributes({text: event.target.value})
+
+    function updateText(newText) {
+      props.setAttributes({text: newText})
     }
-    return React.createElement(
-      'div',
-      {className: 'custom-title'},
-      React.createElement("input", { 
-        type: "text", 
-        placeholder: 'Enter title here',
-        class: 'custom-title-input',
-        value: props.attributes.title, 
-        onChange: updateTitle 
-      }),
-      React.createElement("textarea", { 
-        type: "text", 
-        placeholder: 'Enter text here', 
-        value: props.attributes.text, 
-        onChange: updateText
-      }),
+
+    return el('div',{className: 'custom-title'},
+      
+        el("input", { 
+          type: "text", 
+          placeholder: 'Enter title here',
+          class: 'custom-title-input',
+          value: props.attributes.title, 
+          onChange: updateTitle 
+        }),
+      
+        el(richText, { 
+          tagName: 'p',
+          placeholder: 'Enter text here', 
+          value: props.attributes.text, 
+          onChange: updateText
+        }),
     );
   },
 
-  save(props){
-    return wp.element.createElement(
-      'div',
-      {className: 'row custom-title'},
-      wp.element.createElement(
-        'h1',
-        {className: 'col-12'},
-        props.attributes.title
-      ),
-      wp.element.createElement(
-        'p',
-        {className: 'col-12'},
-        props.attributes.text
-      ),
+  save: function(props){
+    return el('div',{className: 'row custom-title'},
+      el('h1',{className: 'col-12'},props.attributes.title),
+      el(richText.Content,
+        {
+          tagName: 'p',
+          value: props.attributes.text
+        }),
     )
   }
 });
