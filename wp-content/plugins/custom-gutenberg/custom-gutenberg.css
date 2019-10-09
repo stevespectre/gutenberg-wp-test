@@ -1,0 +1,14 @@
+.block-editor-block-list__block input[type=text] {
+  border: none;
+  display: block;
+}
+
+.block-editor-block-list__block input[type=text].custom-title-input {
+  font-size: 24px;
+}
+
+.block-editor-block-list__block textarea {
+  display: block;
+  width: 100%;
+  border: none;
+}
