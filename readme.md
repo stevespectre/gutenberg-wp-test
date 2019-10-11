@@ -1,6 +1,7 @@
-# header H1
-## header H2
-### header H3
-#### header H4
-##### header H5
-###### header H6
+## General info
+username: admin
+pw: AlLz#YmWG^p^LIl52d
+
+## Setup
+*Make sure you activate the plugin (Custom Gutenberg Block)
+*Open any post and your custom gutenberg (custom title)
